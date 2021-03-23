@@ -1,0 +1,28 @@
+<div class="todo-list-section">
+  <ul class="list-group" *ngIf="tasks$ | async as taskList">
+    <li class="list-group-item" *ngFor="let task of taskList">
+      <span
+        class="hover-icon mr-2 pull-left"
+        [class.text-success]="task.isDone"
+        (click)="onTaskUpdated(task)"
+      >
+        <i
+          class="fa"
+          [ngClass]="task.isDone ? 'fa-check-circle-o' : 'fa-circle-thin'"
+        ></i>
+      </span>
+      <span
+        class="text-center"
+        [class.text-decoration-line-through]="task.isDone"
+      >
+        {{ task.description }}</span
+      >
+      <span
+        class="pull-right text-danger hover-icon"
+        (click)="onTaskDeleted(task.id)"
+      >
+        <i class="fa fa-trash"></i>
+      </span>
+    </li>
+  </ul>
+</div>

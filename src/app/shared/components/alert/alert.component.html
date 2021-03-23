@@ -1,0 +1,8 @@
+<div class="alert-backdrop">
+  <div class="alert" [class]="alertInfo.color" role="alert">
+    {{ alertInfo.message }}
+    <button type="button" class="close" aria-label="Close" (click)="fadeOut()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>

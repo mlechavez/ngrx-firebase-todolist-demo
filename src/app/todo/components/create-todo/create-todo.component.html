@@ -1,0 +1,27 @@
+<div class="create-task-section">
+  <h2>Todo List</h2>
+
+  <app-alert *ngIf="alertInfo$ | async as info" [alertInfo]="info"></app-alert>
+
+  <form #todoForm="ngForm" (ngSubmit)="onTaskSubmitted()">
+    <div class="form-group">
+      <div class="input-group">
+        <input
+          required
+          type="text"
+          id="name"
+          name="task"
+          class="form-control"
+          placeholder="Add a task"
+          [(ngModel)]="task.description"
+          #description="ngModel"
+        />
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-plus-circle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

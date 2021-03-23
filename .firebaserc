@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "todolist-9ceed": {
+      "hosting": {
+        "ngrx-firebase-todolist": [
+          "todolist-9ceed"
+        ]
+      }
+    }
+  }
+}

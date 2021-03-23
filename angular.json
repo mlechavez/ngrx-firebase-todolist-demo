@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TodoListDemo": {
+    "ngrx-firebase-todolist": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/TodoListDemo",
+            "outputPath": "dist/ngrx-firebase-todolist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -30,7 +30,15 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -66,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "TodoListDemo:build"
+            "browserTarget": "ngrx-firebase-todolist:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "TodoListDemo:build:production"
+              "browserTarget": "ngrx-firebase-todolist:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TodoListDemo:build"
+            "browserTarget": "ngrx-firebase-todolist:build"
           }
         },
         "test": {
@@ -114,15 +122,20 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "TodoListDemo:serve"
+            "devServerTarget": "ngrx-firebase-todolist:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "TodoListDemo:serve:production"
+              "devServerTarget": "ngrx-firebase-todolist:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
-  "defaultProject": "TodoListDemo"
+    }
+  },
+  "defaultProject": "ngrx-firebase-todolist"
 }

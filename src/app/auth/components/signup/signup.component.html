@@ -1,0 +1,66 @@
+<h1>Sign up</h1>
+<p>... and start adding your tasks</p>
+
+<app-alert *ngIf="alertInfo$ | async as info" [alertInfo]="info"></app-alert>
+
+<form #signupForm="ngForm" (ngSubmit)="onSignupSubmit()">
+  <div class="form-group">
+    <label for="username">Email</label>
+    <input
+      required
+      email
+      type="email"
+      name="email"
+      id="email"
+      class="form-control"
+      [ngClass]="email.invalid && email.touched ? 'is-invalid' : ''"
+      [(ngModel)]="signupRequest.email"
+      #email="ngModel"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="email.errors?.required && email.touched"
+    >
+      Email is required
+    </div>
+    <div class="invalid-feedback" *ngIf="email.errors?.email && email.touched">
+      Email is invalid
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      required
+      minlength="6"
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+      [ngClass]="password.invalid && password.touched ? 'is-invalid' : ''"
+      [(ngModel)]="signupRequest.password"
+      #password="ngModel"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="password.errors?.required && email.touched"
+    >
+      Password is required
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="password.errors?.minlength && email.touched"
+    >
+      The minimum length password is 6
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">
+    Sign up
+  </button>
+  <div class="pull-right">
+    <div class="my-2">
+      <a href="#" routerLink="/auth/login" class="display-block"
+        >Have an account? Sign in</a
+      >
+    </div>
+  </div>
+</form>

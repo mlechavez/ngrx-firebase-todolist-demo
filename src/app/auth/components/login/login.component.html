@@ -1,0 +1,44 @@
+<h1>{{ title }}</h1>
+
+<form #loginForm="ngForm" (ngSubmit)="onLoginSubmit()">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      required
+      email
+      type="email"
+      name="email"
+      id="email"
+      class="form-control"
+      [ngClass]="email.invalid && email.touched ? 'is-invalid' : ''"
+      [(ngModel)]="loginRequest.email"
+      #email="ngModel"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      required
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+      [ngClass]="password.invalid && password.touched ? 'is-invalid' : ''"
+      [(ngModel)]="loginRequest.password"
+      #password="ngModel"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+    Login
+  </button>
+  <div class="pull-right">
+    <div class="my-2">
+      <a href="#" routerLink="/auth/forgot-password" class="display-block"
+        >Forgot Password?</a
+      >&nbsp;
+      <!-- <a href="#" routerLink="/auth/signup" class="display-block"
+        >No account. Register?</a
+      > -->
+    </div>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+// .alert-backdrop {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 99;
+//   background-color: rgba($color: #000000, $alpha: 0.5);
+//   opacity: 1;
+// }
+
+// .alert-backdrop.alert-fade-out {
+//   position: static;
+//   top: auto;
+//   left: auto;
+//   width: auto;
+//   height: auto;
+//   z-index: auto;
+//   background-color: rgba($color: #000000, $alpha: 0.5);
+//   opacity: 0;
+//   transition: opacity 1s;
+// }
+
+// .alert {
+//   width: 500px;
+//   margin: 10% auto;
+//   text-align: center;
+// }
