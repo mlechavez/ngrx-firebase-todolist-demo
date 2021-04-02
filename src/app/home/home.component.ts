@@ -13,6 +13,7 @@ import { getCompletedTasks } from '../todo/state/task.selectors';
 })
 export class HomeComponent implements OnInit {
   completedTasks$: Observable<Task[]>;
+  doneTasksTitle = 'Job well done!';
 
   constructor(private store: Store<AppState>) {}
 

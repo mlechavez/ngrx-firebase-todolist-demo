@@ -2,24 +2,26 @@
   <div class="container">
     <h1>Dashboard</h1>
     <div class="row">
-      <div class="col-md-8">
-        <table
-          class="table table-condensed"
-          *ngIf="(completedTasks$ | async).length"
-        >
-          <thead>
-            <th>Description</th>
-            <th>Created Date</th>
-            <th>Finished Date</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let task of completedTasks$ | async" id="task.id">
-              <td>{{ task.description }}</td>
-              <td>{{ task.createdDate | todoTimestamp: "short" }}</td>
-              <td>{{ task.finishedDate | todoTimestamp: "short" }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-sm-8"></div>
+
+      <div class="col-md-4">
+        <h3 class="mb-3">
+          {{ doneTasksTitle }}
+        </h3>
+        <a href="#">See all your finished tasks</a>
+        <ul class="list-group" *ngIf="(completedTasks$ | async).length">
+          <li
+            class="list-group-item"
+            *ngFor="let task of completedTasks$ | async"
+            id="task.id"
+          >
+            <strong>The</strong> {{ task.description }} has ben finished on
+            <strong>{{
+              task.finishedDate | todoTimestamp: "mediumDate"
+            }}</strong>
+          </li>
+        </ul>
+
         <h4 *ngIf="!(completedTasks$ | async).length">
           No completed tasks yet.
         </h4>

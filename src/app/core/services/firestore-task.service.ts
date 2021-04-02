@@ -24,7 +24,7 @@ export class TaskService implements ITaskService {
     });
   }
 
-  getTasks() {
+  getOnGoingTasks() {
     return from(
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
@@ -33,12 +33,15 @@ export class TaskService implements ITaskService {
     );
   }
 
-  getCompletedTasks() {
+  getCompletedTasks(pageNo: number, pageSize: number) {
     return from(
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
         .where('finishedDate', '!=', null)
+        .orderBy('finishedDate', 'desc')
+        //.startAt(pageNo)
+        .limit(!pageSize ? 10 : pageSize)
         .get()
     );
   }
