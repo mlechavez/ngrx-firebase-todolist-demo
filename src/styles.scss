@@ -5,7 +5,38 @@ body {
   padding-top: 30px;
 }
 
-.well {
-  background-color: #eee;
-  padding: 10px;
+.ongoing-tasks {
+  padding: 0 0.25rem;
+  .card {
+    height: 100%;
+    width: 100%;
+  }
+
+  .card-text {
+    margin-bottom: 2.5rem;
+    clear: both;
+  }
+
+  .task-createdate {
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .form-control {
+      height: auto;
+      width: auto;
+      padding: 0;
+    }
+  }
 }

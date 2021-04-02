@@ -4,27 +4,31 @@
   {{ onGoingTasksHeader }}
 </h3>
 
-<table class="table table-condensed">
-  <tbody>
-    <tr *ngFor="let task of onGoingTasks$ | async" id="task.id">
-      <td>
-        <div class="row">
-          <div class="col-sm-6">
-            <p>
-              Created on
-              <strong
-                >{{ task.createdDate | todoTimestamp: "shortDate" }}:</strong
-              >
-            </p>
-            <div>{{ task.description }}</div>
-          </div>
-          <div class="col-sm-6">
-            <a href="#" class="text-danger pull-right">
-              <i class="fa fa-trash"></i>
-            </a>
-          </div>
+<div class="row">
+  <div
+    class="col-sm-4 mb-2 ongoing-tasks"
+    *ngFor="let task of onGoingTasks$ | async"
+  >
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <small class="task-createdate pull-right">
+          Created on {{ task.createdDate | todoTimestamp: "shortDate" }}
+        </small>
+
+        <p class="card-text">{{ task.description }}</p>
+
+        <div class="card-actions">
+          <select name="status" id="status" class="form-control">
+            <option value="">Not Started</option>
+            <option value="">In progress</option>
+            <option value="">Completed</option>
+          </select>
+
+          <a href="#" class="text-danger">
+            <i class="fa fa-trash"></i>
+          </a>
         </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
