@@ -24,21 +24,25 @@ export class TaskService implements ITaskService {
     });
   }
 
-  getTasks() {
+  getOnGoingTasks() {
     return from(
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
+        .where('isDone', '==', false)
+        // .orderBy('createdDate', 'desc')
         .get()
     );
   }
 
-  getCompletedTasks() {
+  getCompletedTasks(pageNo: number, pageSize: number) {
     return from(
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
         .where('finishedDate', '!=', null)
+        .orderBy('finishedDate', 'desc')
+        .limit(!pageSize ? 10 : pageSize)
         .get()
     );
   }

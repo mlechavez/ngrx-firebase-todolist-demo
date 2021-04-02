@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addTodoSucceeded,
   deleteTaskSucceeded,
-  loadAllTasksSucceeded,
+  loadOngoingTasksSucceeded,
   loadCompletedTasksSucceeded,
   updateTaskRequested,
 } from './task.actions';
@@ -13,35 +13,35 @@ export const _taskReducer = createReducer(
   on(addTodoSucceeded, (state, action) => {
     return {
       ...state,
-      tasks: [...state.tasks, { ...action.task }],
+      onGoingTasks: [...state.onGoingTasks, { ...action.task }],
     };
   }),
   on(updateTaskRequested, (state, action) => {
-    const updatedTasks = state.tasks.map((t) => {
+    const updatedTasks = state.onGoingTasks.map((t) => {
       return t.id === action.task.id ? action.task : t;
     });
     return {
       ...state,
-      tasks: updatedTasks,
+      onGoingTasks: updatedTasks,
     };
   }),
   on(deleteTaskSucceeded, (state, action) => {
-    const updatedTasks = state.tasks.filter((t) => t.id !== action.id);
+    const updatedTasks = state.completedTasks.filter((t) => t.id !== action.id);
     return {
       ...state,
-      tasks: updatedTasks,
+      onGoingTasks: updatedTasks,
     };
   }),
-  on(loadAllTasksSucceeded, (state, action) => {
+  on(loadOngoingTasksSucceeded, (state, action) => {
     return {
       ...state,
-      tasks: action.tasks,
+      onGoingTasks: action.onGoingTasks,
     };
   }),
   on(loadCompletedTasksSucceeded, (state, action) => {
     return {
       ...state,
-      tasks: action.tasks,
+      completedTasks: action.completedTasks,
     };
   })
 );

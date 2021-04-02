@@ -5,10 +5,10 @@ export const TASK_STATE_NAME = 'tasks';
 
 const getTaskState = createFeatureSelector<TasksState>(TASK_STATE_NAME);
 
-export const getTasks = createSelector(getTaskState, (state) => {
-  return state.tasks;
+export const getOngoingTasks = createSelector(getTaskState, (state) => {
+  return state.onGoingTasks;
 });
 
 export const getCompletedTasks = createSelector(getTaskState, (state) => {
-  return state.tasks.filter((t) => t.finishedDate != null);
+  return state.completedTasks.filter((t) => t.finishedDate != null);
 });

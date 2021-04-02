@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
 
-import { TaskService } from 'src/app/core/services/task.service';
+import { TaskService } from 'src/app/core/services/firestore-task.service';
 import { setMessage } from 'src/app/shared/state/shared.actions';
 import * as fromTaskActions from './task.actions';
 
@@ -19,19 +19,21 @@ export class TaskEffects {
     private toastrService: ToastrService
   ) {}
 
-  loadTasks$ = createEffect(() => {
+  loadOnGoingTasks$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromTaskActions.loadAllTasksRequested),
+      ofType(fromTaskActions.loadOngoingTasksRequested),
       switchMap((action) => {
         this.spinnerService.show();
-        return this.taskService.getTasks().pipe(
+        return this.taskService.getOnGoingTasks().pipe(
           map((querySnapshot) => {
             let tasks = [];
             querySnapshot.forEach((doc) => {
               tasks.push({ ...(doc.data() as {}), id: doc.id });
             });
             this.spinnerService.hide();
-            return fromTaskActions.loadAllTasksSucceeded({ tasks: tasks });
+            return fromTaskActions.loadOngoingTasksSucceeded({
+              onGoingTasks: tasks,
+            });
           }),
           catchError((err) => {
             this.spinnerService.hide();
@@ -49,7 +51,7 @@ export class TaskEffects {
       switchMap((action) => {
         this.spinnerService.show();
 
-        return this.taskService.getCompletedTasks().pipe(
+        return this.taskService.getCompletedTasks(1, 10).pipe(
           map((querySnapshot) => {
             let tasks = [];
 
@@ -60,7 +62,7 @@ export class TaskEffects {
             this.spinnerService.hide();
 
             return fromTaskActions.loadCompletedTasksSucceeded({
-              tasks: tasks,
+              completedTasks: tasks,
             });
           }),
           catchError((err) => {
