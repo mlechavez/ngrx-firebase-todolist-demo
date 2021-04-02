@@ -1,8 +1,38 @@
 <section class="section">
   <div class="container">
-    <h1>Dashboard</h1>
+    <h1 class="mb-5">Dashboard</h1>
     <div class="row">
-      <div class="col-sm-8"></div>
+      <div class="col-sm-8">
+        <h3 class="mb-3">
+          {{ onGoingTasksHeader }}
+        </h3>
+        <table class="table table-condensed">
+          <tbody>
+            <tr *ngFor="let task of onGoingTasks$ | async" id="task.id">
+              <td>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p>
+                      Created on
+                      <strong
+                        >{{
+                          task.createdDate | todoTimestamp: "shortDate"
+                        }}:</strong
+                      >
+                    </p>
+                    <div>{{ task.description }}</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <a href="#" class="text-danger pull-right">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="col-md-4">
         <h3 class="mb-3">

@@ -7,10 +7,10 @@ import { User } from 'src/app/core/models/user.model';
 import { AppState } from 'src/app/state/app.state';
 import {
   deleteTaskRequested,
-  loadAllTasksRequested,
+  loadOngoingTasksRequested,
   updateTaskRequested,
 } from '../../state/task.actions';
-import { getTasks } from '../../state/task.selectors';
+import { getOngoingTasks } from '../../state/task.selectors';
 
 @Component({
   selector: 'app-todo-list',
@@ -24,8 +24,8 @@ export class TodoListComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.tasks$ = this.store.select(getTasks);
-    this.store.dispatch(loadAllTasksRequested());
+    this.tasks$ = this.store.select(getOngoingTasks);
+    this.store.dispatch(loadOngoingTasksRequested());
     this.store.select(getUser).subscribe((user) => {
       this.user = user;
     });

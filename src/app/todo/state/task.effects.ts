@@ -19,9 +19,9 @@ export class TaskEffects {
     private toastrService: ToastrService
   ) {}
 
-  loadTasks$ = createEffect(() => {
+  loadOnGoingTasks$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(fromTaskActions.loadAllTasksRequested),
+      ofType(fromTaskActions.loadOngoingTasksRequested),
       switchMap((action) => {
         this.spinnerService.show();
         return this.taskService.getOnGoingTasks().pipe(
@@ -31,7 +31,9 @@ export class TaskEffects {
               tasks.push({ ...(doc.data() as {}), id: doc.id });
             });
             this.spinnerService.hide();
-            return fromTaskActions.loadAllTasksSucceeded({ tasks: tasks });
+            return fromTaskActions.loadOngoingTasksSucceeded({
+              onGoingTasks: tasks,
+            });
           }),
           catchError((err) => {
             this.spinnerService.hide();
@@ -60,7 +62,7 @@ export class TaskEffects {
             this.spinnerService.hide();
 
             return fromTaskActions.loadCompletedTasksSucceeded({
-              tasks: tasks,
+              completedTasks: tasks,
             });
           }),
           catchError((err) => {

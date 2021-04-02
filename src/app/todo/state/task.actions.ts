@@ -1,13 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 import { Task } from 'src/app/core/models/task.model';
 
-export const loadAllTasksRequested = createAction(
-  '[Task List] Load All Tasks Requested'
+export const loadOngoingTasksRequested = createAction(
+  '[Task List] Load On going Tasks Requested'
 );
 
-export const loadAllTasksSucceeded = createAction(
-  '[Task List] Load All Tasks Succeeded',
-  props<{ tasks: Task[] }>()
+export const loadOngoingTasksSucceeded = createAction(
+  '[Task List] Load On going Tasks Succeeded',
+  props<{ onGoingTasks: Task[] }>()
 );
 
 export const loadCompletedTasksRequested = createAction(
@@ -16,7 +16,7 @@ export const loadCompletedTasksRequested = createAction(
 
 export const loadCompletedTasksSucceeded = createAction(
   '[Completed Tasks] Load Completed Tasks Succeeded',
-  props<{ tasks: Task[] }>()
+  props<{ completedTasks: Task[] }>()
 );
 
 export const addTodoRequested = createAction(

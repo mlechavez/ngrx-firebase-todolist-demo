@@ -29,6 +29,8 @@ export class TaskService implements ITaskService {
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
+        .where('isDone', '==', false)
+        // .orderBy('createdDate', 'desc')
         .get()
     );
   }
@@ -40,7 +42,6 @@ export class TaskService implements ITaskService {
         .where('userId', '==', this.user.uid)
         .where('finishedDate', '!=', null)
         .orderBy('finishedDate', 'desc')
-        //.startAt(pageNo)
         .limit(!pageSize ? 10 : pageSize)
         .get()
     );
