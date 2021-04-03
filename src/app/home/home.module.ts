@@ -6,6 +6,7 @@ import { OngoingTasksComponent } from './components/ongoing-tasks/ongoing-tasks.
 import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddModalComponent } from './components/add-modal/add-modal.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
     OngoingTasksComponent,
     CompletedTasksComponent,
     DeleteModalComponent,
+    AddModalComponent,
   ],
   imports: [SharedModule, RouterModule.forChild(routes), NgbModule],
 })

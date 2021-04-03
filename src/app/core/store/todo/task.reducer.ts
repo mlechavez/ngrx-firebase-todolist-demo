@@ -13,7 +13,7 @@ export const _taskReducer = createReducer(
   on(addTodoSucceeded, (state, action) => {
     return {
       ...state,
-      onGoingTasks: [...state.onGoingTasks, { ...action.task }],
+      onGoingTasks: [{ ...action.task }, ...state.onGoingTasks],
     };
   }),
   on(updateTaskRequested, (state, action) => {

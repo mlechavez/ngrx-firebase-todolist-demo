@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ title }}</h4>
+</div>
+<form #addTaskForm="ngForm">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        required
+        name="description"
+        id="description"
+        class="form-control"
+        [class.is-invalid]="description.errors?.required && description.touched"
+        [(ngModel)]="task.description"
+        #description="ngModel"
+      ></textarea>
+      <span
+        class="invalid-feedback"
+        *ngIf="description.errors?.required && description.touched"
+      >
+        Description is required
+      </span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      [ngClass]="
+        !addTaskForm.valid ? 'btn-outline-secondary' : 'btn-outline-success'
+      "
+      class="btn"
+      (click)="emitData()"
+      [disabled]="!addTaskForm.valid"
+    >
+      Submit
+    </button>
+    <button class="btn btn-outline-secondary" (click)="dismiss()">
+      Cancel
+    </button>
+  </div>
+</form>
