@@ -7,10 +7,7 @@ import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 
 import { TaskService } from 'src/app/core/services/firestore-task.service';
-import {
-  setMessage,
-  setTobeDeletedTaskRequest,
-} from 'src/app/core/store/shared/shared.actions';
+import { setMessage } from 'src/app/core/store/shared/shared.actions';
 import * as fromTaskActions from './task.actions';
 
 @Injectable()

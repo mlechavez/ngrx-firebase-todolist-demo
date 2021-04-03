@@ -1,15 +1,16 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/models/task.model';
 import { AppState } from 'src/app/core/store/app.state';
-import { setTobeDeletedTaskRequest } from 'src/app/core/store/shared/shared.actions';
+
 import {
   deleteTaskRequested,
   loadOngoingTasksRequested,
 } from 'src/app/core/store/todo/task.actions';
 import { selectOngoingTasks } from 'src/app/core/store/todo/task.selectors';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-ongoing-tasks',
@@ -20,28 +21,20 @@ export class OngoingTasksComponent implements OnInit {
   onGoingTasks$: Observable<Task[]>;
   onGoingTasksHeader = 'On going tasks';
   constructor(private store: Store<AppState>, private modalService: NgbModal) {}
-  deleteModalReference: ElementRef;
 
   ngOnInit(): void {
     this.store.dispatch(loadOngoingTasksRequested());
     this.onGoingTasks$ = this.store.select(selectOngoingTasks);
   }
 
-  getModalReference($event): void {
-    this.deleteModalReference = $event;
-  }
-
-  openModal(event: Event, content, task: Task): void {
+  openModal(event: Event, task: Task): void {
     event.preventDefault();
 
-    this.store.dispatch(
-      setTobeDeletedTaskRequest({ tobeDeletedTask: { ...task } })
-    );
+    const modalRef = this.modalService.open(DeleteModalComponent);
+    modalRef.componentInstance.task = task;
 
-    this.modalService.open(content).result.then((result) => {
-      if (result == 'confirm') {
-        this.store.dispatch(deleteTaskRequested({ id: task.id }));
-      }
+    modalRef.result.then((task) => {
+      this.store.dispatch(deleteTaskRequested({ id: task.id }));
     });
   }
 }

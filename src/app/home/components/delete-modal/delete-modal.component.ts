@@ -1,41 +1,26 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { Task } from 'src/app/core/models/task.model';
 import { AppState } from 'src/app/core/store/app.state';
-import { selectTobeDeletedTask } from 'src/app/core/store/shared/shared.selectors';
 
 @Component({
   selector: 'app-delete-modal',
   templateUrl: './delete-modal.component.html',
   styleUrls: ['./delete-modal.component.scss'],
 })
-export class DeleteModalComponent implements OnInit, AfterViewInit {
+export class DeleteModalComponent implements OnInit {
   title = 'Delete task';
-  @ViewChild('deleteTask') deleteTask: ElementRef;
-
   task: Task;
-  @Output() deleteTaskInit = new EventEmitter<ElementRef>();
-  constructor(private store: Store<AppState>) {}
+  constructor(private activeModal: NgbActiveModal) {}
 
-  ngOnInit(): void {
-    console.log('initialized');
-    this.store.select(selectTobeDeletedTask).subscribe((data) => {
-      this.task = data;
-    });
+  ngOnInit(): void {}
+
+  emitData(): void {
+    this.activeModal.close(this.task);
   }
 
-  ngAfterViewInit(): void {
-    this.deleteTaskInit.emit(this.deleteTask);
+  dismiss(): void {
+    this.activeModal.dismiss('cancel');
   }
 }

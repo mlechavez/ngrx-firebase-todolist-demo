@@ -13,7 +13,3 @@ export const selectAlertInfo = createSelector(
   selectSharedState,
   (state) => state.alertInfo
 );
-export const selectTobeDeletedTask = createSelector(
-  selectSharedState,
-  (state) => state.tobeDeletedTask
-);
