@@ -32,7 +32,7 @@ export class TaskEffects {
             });
             this.spinnerService.hide();
             return fromTaskActions.loadOngoingTasksSucceeded({
-              onGoingTasks: tasks,
+              onGoingTasks: [...tasks],
             });
           }),
           catchError((err) => {
@@ -62,7 +62,7 @@ export class TaskEffects {
             this.spinnerService.hide();
 
             return fromTaskActions.loadCompletedTasksSucceeded({
-              completedTasks: tasks,
+              completedTasks: [...tasks],
             });
           }),
           catchError((err) => {
@@ -110,7 +110,9 @@ export class TaskEffects {
             this.toastrService.success(
               `${action.task.description} has been updated!`
             );
-            return fromTaskActions.updateTaskSucceeded({ task: action.task });
+            return fromTaskActions.updateTaskSucceeded({
+              task: { ...action.task },
+            });
           }),
           catchError((err) => {
             this.spinnerService.hide();

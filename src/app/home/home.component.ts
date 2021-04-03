@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
     modalRef.componentInstance.task = {
       description: null,
-      isDone: false,
+      status: 'Not started',
       userId: this.user.uid,
       createdDate: null,
       finishedDate: null,

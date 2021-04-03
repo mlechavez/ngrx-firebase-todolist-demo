@@ -10,7 +10,8 @@
     *ngFor="let task of completedTasks$ | async"
     id="task.id"
   >
-    <strong>The</strong> {{ task.description }} has ben finished on
+    <strong>The</strong> {{ task.description }} has been
+    <span class="text-success">{{ task.status.toLowerCase() }}</span> on
     <strong>{{ task.finishedDate | todoTimestamp: "mediumDate" }}</strong>
   </li>
 </ul>

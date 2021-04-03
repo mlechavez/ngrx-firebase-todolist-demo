@@ -3,23 +3,30 @@
 </h3>
 
 <div class="row">
-  <div
-    class="col-sm-4 mb-2 ongoing-tasks"
-    *ngFor="let task of onGoingTasks$ | async"
-  >
+  <div class="col-sm-4 mb-2 ongoing-tasks" *ngFor="let task of onGoingTasks">
     <div class="card bg-info text-white">
       <div class="card-body">
-        <small class="task-createdate pull-right">
+        <small class="task-createdate pull-right text-warning">
           Created on {{ task.createdDate | todoTimestamp: "shortDate" }}
         </small>
 
         <p class="card-text">{{ task.description }}</p>
 
         <div class="card-actions">
-          <select name="status" id="status" class="form-control">
-            <option value="">Not Started</option>
-            <option value="">In progress</option>
-            <option value="">Completed</option>
+          <select
+            name="status"
+            id="status"
+            class="form-control"
+            [(ngModel)]="task.status"
+            #status="ngModel"
+            (change)="onStatusChanged(task)"
+          >
+            <option
+              *ngFor="let stat of keys(taskStatus)"
+              [value]="taskStatus[stat]"
+            >
+              {{ convertStatus(stat) }}
+            </option>
           </select>
 
           <a href="#" class="text-danger">

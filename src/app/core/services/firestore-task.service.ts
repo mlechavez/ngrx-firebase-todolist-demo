@@ -29,7 +29,7 @@ export class TaskService implements ITaskService {
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
-        .where('isDone', '==', false)
+        .where('finishedDate', '==', null)
         .orderBy('createdDate', 'desc')
         .get()
     );

@@ -32,18 +32,18 @@ export class TodoListComponent implements OnInit {
   }
 
   onTaskUpdated(task: Task): void {
-    const updatedTask = {
-      id: task.id,
-      description: task.description,
-      isDone: !task.isDone,
-      userId: this.user.uid,
-      createdDate: task.createdDate,
-      finishedDate: !task.isDone ? new Date() : null,
-    };
-    this.store.dispatch(updateTaskRequested({ task: updatedTask }));
+    // const updatedTask = {
+    //   id: task.id,
+    //   description: task.description,
+    //   isDone: !task.isDone,
+    //   userId: this.user.uid,
+    //   createdDate: task.createdDate,
+    //   finishedDate: !task.isDone ? new Date().toJSON() : null,
+    // };
+    // this.store.dispatch(updateTaskRequested({ task: updatedTask }));
   }
 
   onTaskDeleted(id: string): void {
-    this.store.dispatch(deleteTaskRequested({ id }));
+    // this.store.dispatch(deleteTaskRequested({ id }));
   }
 }

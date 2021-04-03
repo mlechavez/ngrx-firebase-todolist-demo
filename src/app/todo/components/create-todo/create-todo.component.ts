@@ -37,9 +37,9 @@ export class CreateTodoComponent implements OnInit {
   }
 
   onTaskSubmitted(): void {
-    this.task.userId = this.user.uid;
-    this.task.createdDate = new Date();
-    this.store.dispatch(addTodoRequested({ task: { ...this.task } }));
-    this.task.description = '';
+    // this.task.userId = this.user.uid;
+    // this.task.createdDate = new Date().toJSON();
+    // this.store.dispatch(addTodoRequested({ task: { ...this.task } }));
+    // this.task.description = '';
   }
 }

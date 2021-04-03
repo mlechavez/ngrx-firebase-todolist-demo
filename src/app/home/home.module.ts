@@ -7,6 +7,7 @@ import { CompletedTasksComponent } from './components/completed-tasks/completed-
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { CompleteModalComponent } from './components/complete-modal/complete-modal.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
     CompletedTasksComponent,
     DeleteModalComponent,
     AddModalComponent,
+    CompleteModalComponent,
   ],
   imports: [SharedModule, RouterModule.forChild(routes), NgbModule],
 })

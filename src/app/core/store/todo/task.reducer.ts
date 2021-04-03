@@ -5,6 +5,7 @@ import {
   loadOngoingTasksSucceeded,
   loadCompletedTasksSucceeded,
   updateTaskRequested,
+  updateTaskSucceeded,
 } from './task.actions';
 import { initialState } from './task.state';
 
@@ -16,13 +17,14 @@ export const _taskReducer = createReducer(
       onGoingTasks: [{ ...action.task }, ...state.onGoingTasks],
     };
   }),
-  on(updateTaskRequested, (state, action) => {
-    const updatedTasks = state.onGoingTasks.map((t) => {
+  on(updateTaskSucceeded, (state, action) => {
+    const ongoingTasks = state.onGoingTasks.map((t) => {
       return t.id === action.task.id ? action.task : t;
     });
     return {
       ...state,
-      onGoingTasks: updatedTasks,
+      onGoingTasks: [...ongoingTasks],
+      completedTasks: [{ ...action.task }, ...state.completedTasks],
     };
   }),
   on(deleteTaskSucceeded, (state, action) => {
@@ -35,13 +37,13 @@ export const _taskReducer = createReducer(
   on(loadOngoingTasksSucceeded, (state, action) => {
     return {
       ...state,
-      onGoingTasks: action.onGoingTasks,
+      onGoingTasks: [...action.onGoingTasks],
     };
   }),
   on(loadCompletedTasksSucceeded, (state, action) => {
     return {
       ...state,
-      completedTasks: action.completedTasks,
+      completedTasks: [...action.completedTasks],
     };
   })
 );
