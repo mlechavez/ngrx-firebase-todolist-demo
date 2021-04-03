@@ -1,0 +1,27 @@
+<ng-template #deleteTask let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+  </div>
+  <div class="modal-body">
+    <strong
+      >Are you sure you want to delete <br />
+      ?</strong
+    >
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.dismiss('cancel')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.close('confirm')"
+    >
+      Confirm
+    </button>
+  </div>
+</ng-template>
