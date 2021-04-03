@@ -17,6 +17,7 @@ import { appReducer } from './state/app.state';
 import { AuthEffects } from './auth/state/auth.effects';
 import { CoreModule } from './core/core.module';
 import { TaskEffects } from './todo/state/task.effects';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { TaskEffects } from './todo/state/task.effects';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([AuthEffects, TaskEffects]),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

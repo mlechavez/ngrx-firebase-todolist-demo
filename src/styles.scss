@@ -1,42 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "todolist";
+@import "variables";
 
-body {
-  padding-top: 30px;
-}
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
 
-.ongoing-tasks {
-  padding: 0 0.25rem;
-  .card {
-    height: 100%;
-    width: 100%;
-  }
+/* Importing fontawesome */
+@import "~font-awesome/scss/font-awesome";
 
-  .card-text {
-    margin-bottom: 2.5rem;
-    clear: both;
-  }
+/* Importing NgxToastr */
+@import "~ngx-toastr/toastr";
 
-  .task-createdate {
-    display: block;
-    margin-bottom: 1.25rem;
-  }
-
-  .card-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem;
-
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    .form-control {
-      height: auto;
-      width: auto;
-      padding: 0;
-    }
-  }
-}
+/* Custom styles */
+@import "app";
