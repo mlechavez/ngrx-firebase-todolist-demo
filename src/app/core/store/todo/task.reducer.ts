@@ -26,7 +26,7 @@ export const _taskReducer = createReducer(
     };
   }),
   on(deleteTaskSucceeded, (state, action) => {
-    const updatedTasks = state.completedTasks.filter((t) => t.id !== action.id);
+    const updatedTasks = state.onGoingTasks.filter((t) => t.id !== action.id);
     return {
       ...state,
       onGoingTasks: updatedTasks,

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/models/task.model';
 import { AppState } from 'src/app/core/store/app.state';
 import { loadCompletedTasksRequested } from 'src/app/core/store/todo/task.actions';
-import { getCompletedTasks } from 'src/app/core/store/todo/task.selectors';
+import { selectCompletedTasks } from 'src/app/core/store/todo/task.selectors';
 
 @Component({
   selector: 'app-completed-tasks',
@@ -19,6 +19,6 @@ export class CompletedTasksComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadCompletedTasksRequested());
 
-    this.completedTasks$ = this.store.select(getCompletedTasks);
+    this.completedTasks$ = this.store.select(selectCompletedTasks);
   }
 }

@@ -10,7 +10,7 @@ import {
   loadOngoingTasksRequested,
   updateTaskRequested,
 } from '../../../core/store/todo/task.actions';
-import { getOngoingTasks } from '../../../core/store/todo/task.selectors';
+import { selectOngoingTasks } from '../../../core/store/todo/task.selectors';
 
 @Component({
   selector: 'app-todo-list',
@@ -24,7 +24,7 @@ export class TodoListComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.tasks$ = this.store.select(getOngoingTasks);
+    this.tasks$ = this.store.select(selectOngoingTasks);
     this.store.dispatch(loadOngoingTasksRequested());
     this.store.select(getUser).subscribe((user) => {
       this.user = user;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AlertInfo } from '../core/models/alert.model';
-import { getAlertInfo } from '../core/store/shared/shared.selectors';
+import { selectAlertInfo } from '../core/store/shared/shared.selectors';
 import { AppState } from '../core/store/app.state';
 
 @Component({

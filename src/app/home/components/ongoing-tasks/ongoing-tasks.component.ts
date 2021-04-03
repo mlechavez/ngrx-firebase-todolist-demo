@@ -4,8 +4,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/models/task.model';
 import { AppState } from 'src/app/core/store/app.state';
-import { loadOngoingTasksRequested } from 'src/app/core/store/todo/task.actions';
-import { getOngoingTasks } from 'src/app/core/store/todo/task.selectors';
+import { setTobeDeletedTaskRequest } from 'src/app/core/store/shared/shared.actions';
+import {
+  deleteTaskRequested,
+  loadOngoingTasksRequested,
+} from 'src/app/core/store/todo/task.actions';
+import { selectOngoingTasks } from 'src/app/core/store/todo/task.selectors';
 
 @Component({
   selector: 'app-ongoing-tasks',
@@ -20,17 +24,24 @@ export class OngoingTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadOngoingTasksRequested());
-    this.onGoingTasks$ = this.store.select(getOngoingTasks);
+    this.onGoingTasks$ = this.store.select(selectOngoingTasks);
   }
 
   getModalReference($event): void {
     this.deleteModalReference = $event;
   }
 
-  openDeleteModal(event: Event, content): void {
+  openModal(event: Event, content, task: Task): void {
     event.preventDefault();
+
+    this.store.dispatch(
+      setTobeDeletedTaskRequest({ tobeDeletedTask: { ...task } })
+    );
+
     this.modalService.open(content).result.then((result) => {
-      console.log(result);
+      if (result == 'confirm') {
+        this.store.dispatch(deleteTaskRequested({ id: task.id }));
+      }
     });
   }
 }

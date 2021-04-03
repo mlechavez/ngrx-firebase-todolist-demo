@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.loading$ = this.store.select(fromSharedSelector.getIsLoading);
+    this.loading$ = this.store.select(fromSharedSelector.selectIsLoading);
     this.store.dispatch(userSessionHasRequested());
   }
 }

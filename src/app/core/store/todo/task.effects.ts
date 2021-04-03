@@ -4,10 +4,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 
 import { TaskService } from 'src/app/core/services/firestore-task.service';
-import { setMessage } from 'src/app/core/store/shared/shared.actions';
+import {
+  setMessage,
+  setTobeDeletedTaskRequest,
+} from 'src/app/core/store/shared/shared.actions';
 import * as fromTaskActions from './task.actions';
 
 @Injectable()

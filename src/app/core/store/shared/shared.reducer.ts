@@ -3,8 +3,9 @@ import {
   clearAlertInfoAction,
   setAlertInfoAction,
   setMessage,
-  setLoadingSpinnerAction,
   setNgxSpinnerAction,
+  setTobeDeletedTaskRequest,
+  unsetTobeDeletedTask,
 } from './shared.actions';
 import { initialState } from './shared.state';
 
@@ -32,6 +33,18 @@ const _sharedReducer = createReducer(
     return {
       ...state,
       message: action.message,
+    };
+  }),
+  on(setTobeDeletedTaskRequest, (state, action) => {
+    return {
+      ...state,
+      tobeDeletedTask: action.tobeDeletedTask,
+    };
+  }),
+  on(unsetTobeDeletedTask, (state) => {
+    return {
+      ...state,
+      tobeDeletedTask: null,
     };
   })
 );

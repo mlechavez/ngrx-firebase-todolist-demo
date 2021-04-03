@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AlertInfo } from 'src/app/core/models/alert.model';
 import { SignupRequestPayload } from 'src/app/core/payloads/auth.payloads';
-import { getAlertInfo } from 'src/app/core/store/shared/shared.selectors';
+import { selectAlertInfo } from 'src/app/core/store/shared/shared.selectors';
 import { AppState } from 'src/app/core/store/app.state';
 import { signupRequest } from '../../state/auth.actions';
 
@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.alertInfo$ = this.store.select(getAlertInfo);
+    this.alertInfo$ = this.store.select(selectAlertInfo);
   }
 
   onSignupSubmit(): void {
