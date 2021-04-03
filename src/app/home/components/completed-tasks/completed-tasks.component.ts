@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/models/task.model';
-import { AppState } from 'src/app/state/app.state';
-import { loadCompletedTasksRequested } from 'src/app/todo/state/task.actions';
-import { getCompletedTasks } from 'src/app/todo/state/task.selectors';
+import { AppState } from 'src/app/core/store/app.state';
+import { loadCompletedTasksRequested } from 'src/app/core/store/todo/task.actions';
+import { getCompletedTasks } from 'src/app/core/store/todo/task.selectors';
 
 @Component({
   selector: 'app-completed-tasks',

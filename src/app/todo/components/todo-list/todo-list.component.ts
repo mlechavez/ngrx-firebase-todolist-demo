@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { getUser } from 'src/app/auth/state/auth.selectors';
 import { Task } from 'src/app/core/models/task.model';
 import { User } from 'src/app/core/models/user.model';
-import { AppState } from 'src/app/state/app.state';
+import { AppState } from 'src/app/core/store/app.state';
 import {
   deleteTaskRequested,
   loadOngoingTasksRequested,
   updateTaskRequested,
-} from '../../state/task.actions';
-import { getOngoingTasks } from '../../state/task.selectors';
+} from '../../../core/store/todo/task.actions';
+import { getOngoingTasks } from '../../../core/store/todo/task.selectors';
 
 @Component({
   selector: 'app-todo-list',

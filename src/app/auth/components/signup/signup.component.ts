@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AlertInfo } from 'src/app/core/models/alert.model';
 import { SignupRequestPayload } from 'src/app/core/payloads/auth.payloads';
-import { getAlertInfo } from 'src/app/shared/state/shared.selectors';
-import { AppState } from 'src/app/state/app.state';
+import { getAlertInfo } from 'src/app/core/store/shared/shared.selectors';
+import { AppState } from 'src/app/core/store/app.state';
 import { signupRequest } from '../../state/auth.actions';
 
 @Component({

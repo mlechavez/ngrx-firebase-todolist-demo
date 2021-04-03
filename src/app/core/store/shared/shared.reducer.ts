@@ -46,7 +46,7 @@ function setNgxSpinnerStartAction(
     action: any
   ) => {
     loading: any;
-    alertInfo: import('../../core/models/alert.model').AlertInfo;
+    alertInfo: import('../../models/alert.model').AlertInfo;
   }
 ): import('@ngrx/store').On<{ alertInfo: any; loading: any }> {
   throw new Error('Function not implemented.');

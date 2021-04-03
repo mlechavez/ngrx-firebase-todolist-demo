@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { signoutRequest } from 'src/app/auth/state/auth.actions';
 import { getUser, isAuthenticated } from 'src/app/auth/state/auth.selectors';
 import { User } from 'src/app/core/models/user.model';
-import { AppState } from 'src/app/state/app.state';
+import { AppState } from 'src/app/core/store/app.state';
 
 @Component({
   selector: 'app-site-header',

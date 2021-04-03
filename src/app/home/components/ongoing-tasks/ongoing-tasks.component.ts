@@ -3,9 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/models/task.model';
-import { AppState } from 'src/app/state/app.state';
-import { loadOngoingTasksRequested } from 'src/app/todo/state/task.actions';
-import { getOngoingTasks } from 'src/app/todo/state/task.selectors';
+import { AppState } from 'src/app/core/store/app.state';
+import { loadOngoingTasksRequested } from 'src/app/core/store/todo/task.actions';
+import { getOngoingTasks } from 'src/app/core/store/todo/task.selectors';
 
 @Component({
   selector: 'app-ongoing-tasks',

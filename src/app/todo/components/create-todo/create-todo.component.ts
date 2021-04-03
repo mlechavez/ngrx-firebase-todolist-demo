@@ -5,9 +5,9 @@ import { getUser } from 'src/app/auth/state/auth.selectors';
 import { AlertInfo } from 'src/app/core/models/alert.model';
 import { Task } from 'src/app/core/models/task.model';
 import { User } from 'src/app/core/models/user.model';
-import { getAlertInfo } from 'src/app/shared/state/shared.selectors';
-import { AppState } from 'src/app/state/app.state';
-import { addTodoRequested } from '../../state/task.actions';
+import { getAlertInfo } from 'src/app/core/store/shared/shared.selectors';
+import { AppState } from 'src/app/core/store/app.state';
+import { addTodoRequested } from '../../../core/store/todo/task.actions';
 
 @Component({
   selector: 'app-create-todo',

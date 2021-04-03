@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { userSessionHasRequested } from './auth/state/auth.actions';
-import * as fromSharedSelector from './shared/state/shared.selectors';
-import { AppState } from './state/app.state';
+import * as fromSharedSelector from './core/store/shared/shared.selectors';
+import { AppState } from './core/store/app.state';
 
 @Component({
   selector: 'app-root',
