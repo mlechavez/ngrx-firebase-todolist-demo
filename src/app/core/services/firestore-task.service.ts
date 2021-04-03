@@ -30,7 +30,7 @@ export class TaskService implements ITaskService {
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
         .where('isDone', '==', false)
-        // .orderBy('createdDate', 'desc')
+        .orderBy('createdDate', 'desc')
         .get()
     );
   }
