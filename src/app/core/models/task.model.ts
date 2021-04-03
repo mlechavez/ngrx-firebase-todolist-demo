@@ -1,8 +1,15 @@
-export interface Task {
+export class Task {
   id?: string;
   description: string;
-  isDone: boolean;
+  isDone?: boolean;
+  status?: string = 'Not started';
   userId: string;
-  createdDate: Date;
-  finishedDate: Date;
+  createdDate: string;
+  finishedDate?: string;
+}
+
+export enum TaskStatus {
+  NOT_STARTED = 'Not started',
+  IN_PROGRESS = 'In progress',
+  COMPLETED = 'Completed',
 }

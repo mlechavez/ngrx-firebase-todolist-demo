@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { getUser } from 'src/app/auth/state/auth.selectors';
-import { AppState } from 'src/app/state/app.state';
+import { AppState } from 'src/app/core/store/app.state';
 import { Task } from '../models/task.model';
 import { User } from '../models/user.model';
 import { ITaskService } from './itask.service';
@@ -29,8 +29,8 @@ export class TaskService implements ITaskService {
       this.firebase.firestore
         .collection(this.COLLECTION_NAME)
         .where('userId', '==', this.user.uid)
-        .where('isDone', '==', false)
-        // .orderBy('createdDate', 'desc')
+        .where('finishedDate', '==', null)
+        .orderBy('createdDate', 'desc')
         .get()
     );
   }

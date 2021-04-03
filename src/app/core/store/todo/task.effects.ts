@@ -4,10 +4,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 
 import { TaskService } from 'src/app/core/services/firestore-task.service';
-import { setMessage } from 'src/app/shared/state/shared.actions';
+import { setMessage } from 'src/app/core/store/shared/shared.actions';
 import * as fromTaskActions from './task.actions';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class TaskEffects {
             });
             this.spinnerService.hide();
             return fromTaskActions.loadOngoingTasksSucceeded({
-              onGoingTasks: tasks,
+              onGoingTasks: [...tasks],
             });
           }),
           catchError((err) => {
@@ -62,7 +62,7 @@ export class TaskEffects {
             this.spinnerService.hide();
 
             return fromTaskActions.loadCompletedTasksSucceeded({
-              completedTasks: tasks,
+              completedTasks: [...tasks],
             });
           }),
           catchError((err) => {
@@ -110,7 +110,9 @@ export class TaskEffects {
             this.toastrService.success(
               `${action.task.description} has been updated!`
             );
-            return fromTaskActions.updateTaskSucceeded({ task: action.task });
+            return fromTaskActions.updateTaskSucceeded({
+              task: { ...action.task },
+            });
           }),
           catchError((err) => {
             this.spinnerService.hide();

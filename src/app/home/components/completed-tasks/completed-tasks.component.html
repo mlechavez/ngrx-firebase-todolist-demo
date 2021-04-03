@@ -1,0 +1,19 @@
+<h3 class="mb-3">
+  {{ doneTasksTitle }}
+</h3>
+
+<a href="#">See all your finished tasks</a>
+
+<ul class="list-group" *ngIf="(completedTasks$ | async).length">
+  <li
+    class="list-group-item"
+    *ngFor="let task of completedTasks$ | async"
+    id="task.id"
+  >
+    <strong>The</strong> {{ task.description }} has been
+    <span class="text-success">{{ task.status.toLowerCase() }}</span> on
+    <strong>{{ task.finishedDate | todoTimestamp: "mediumDate" }}</strong>
+  </li>
+</ul>
+
+<h4 *ngIf="!(completedTasks$ | async).length">No completed tasks yet.</h4>

@@ -13,10 +13,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { appReducer } from './state/app.state';
+import { appReducer } from './core/store/app.state';
 import { AuthEffects } from './auth/state/auth.effects';
 import { CoreModule } from './core/core.module';
-import { TaskEffects } from './todo/state/task.effects';
+import { TaskEffects } from './core/store/todo/task.effects';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddModalComponent } from './home/components/add-modal/add-modal.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,13 +32,23 @@ import { TaskEffects } from './todo/state/task.effects';
     NgxSpinnerModule,
     HomeModule,
     AuthModule,
-    StoreModule.forRoot(appReducer),
+    StoreModule.forRoot(appReducer, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        // strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      },
+    }),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([AuthEffects, TaskEffects]),
+    NgbModule,
   ],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

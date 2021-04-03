@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from 'src/app/state/app.state';
+import { AppState } from 'src/app/core/store/app.state';
 import {
   changePasswordRequest,
   userReAuthenticationRequest,

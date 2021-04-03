@@ -3,12 +3,12 @@ import { TasksState } from './task.state';
 
 export const TASK_STATE_NAME = 'tasks';
 
-const getTaskState = createFeatureSelector<TasksState>(TASK_STATE_NAME);
+const selectTaskState = createFeatureSelector<TasksState>(TASK_STATE_NAME);
 
-export const getOngoingTasks = createSelector(getTaskState, (state) => {
+export const selectOngoingTasks = createSelector(selectTaskState, (state) => {
   return state.onGoingTasks;
 });
 
-export const getCompletedTasks = createSelector(getTaskState, (state) => {
+export const selectCompletedTasks = createSelector(selectTaskState, (state) => {
   return state.completedTasks.filter((t) => t.finishedDate != null);
 });

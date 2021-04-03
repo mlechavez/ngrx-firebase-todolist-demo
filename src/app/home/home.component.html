@@ -1,60 +1,18 @@
 <section class="section">
   <div class="container">
     <h1 class="mb-5">Dashboard</h1>
+
+    <button class="btn btn-primary mb-3" (click)="openModal()">
+      Add a new task
+    </button>
+
     <div class="row">
       <div class="col-sm-8">
-        <h3 class="mb-3">
-          {{ onGoingTasksHeader }}
-        </h3>
-        <table class="table table-condensed">
-          <tbody>
-            <tr *ngFor="let task of onGoingTasks$ | async" id="task.id">
-              <td>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <p>
-                      Created on
-                      <strong
-                        >{{
-                          task.createdDate | todoTimestamp: "shortDate"
-                        }}:</strong
-                      >
-                    </p>
-                    <div>{{ task.description }}</div>
-                  </div>
-                  <div class="col-sm-6">
-                    <a href="#" class="text-danger pull-right">
-                      <i class="fa fa-trash"></i>
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <app-ongoing-tasks></app-ongoing-tasks>
       </div>
 
       <div class="col-md-4">
-        <h3 class="mb-3">
-          {{ doneTasksTitle }}
-        </h3>
-        <a href="#">See all your finished tasks</a>
-        <ul class="list-group" *ngIf="(completedTasks$ | async).length">
-          <li
-            class="list-group-item"
-            *ngFor="let task of completedTasks$ | async"
-            id="task.id"
-          >
-            <strong>The</strong> {{ task.description }} has ben finished on
-            <strong>{{
-              task.finishedDate | todoTimestamp: "mediumDate"
-            }}</strong>
-          </li>
-        </ul>
-
-        <h4 *ngIf="!(completedTasks$ | async).length">
-          No completed tasks yet.
-        </h4>
+        <app-completed-tasks></app-completed-tasks>
       </div>
     </div>
   </div>

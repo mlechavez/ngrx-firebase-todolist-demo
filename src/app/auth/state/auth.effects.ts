@@ -12,11 +12,11 @@ import {
 import { AuthService } from 'src/app/core/services/auth.service';
 import { User } from 'src/app/core/models/user.model';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/state/app.state';
+import { AppState } from 'src/app/core/store/app.state';
 import {
   setMessage,
   setAlertInfoAction,
-} from 'src/app/shared/state/shared.actions';
+} from 'src/app/core/store/shared/shared.actions';
 import { of } from 'rxjs';
 import { AlertInfo } from 'src/app/core/models/alert.model';
 import { HttpErrorResponse } from '@angular/common/http';

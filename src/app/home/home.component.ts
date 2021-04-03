@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { getUser } from '../auth/state/auth.selectors';
 import { Task } from '../core/models/task.model';
-import { AppState } from '../state/app.state';
-import {
-  loadOngoingTasksRequested,
-  loadCompletedTasksRequested,
-} from '../todo/state/task.actions';
-import {
-  getCompletedTasks,
-  getOngoingTasks,
-} from '../todo/state/task.selectors';
+import { User } from '../core/models/user.model';
+import { AppState } from '../core/store/app.state';
+import { addTodoRequested } from '../core/store/todo/task.actions';
+import { AddModalComponent } from './components/add-modal/add-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -18,18 +14,27 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  completedTasks$: Observable<Task[]>;
-  onGoingTasks$: Observable<Task[]>;
-  onGoingTasksHeader = 'On going tasks';
-  doneTasksTitle = 'Job well done!';
-
-  constructor(private store: Store<AppState>) {}
-
+  user: User;
+  constructor(private store: Store<AppState>, private modalService: NgbModal) {}
   ngOnInit(): void {
-    this.store.dispatch(loadOngoingTasksRequested());
-    this.store.dispatch(loadCompletedTasksRequested());
+    this.store.select(getUser).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
-    this.onGoingTasks$ = this.store.select(getOngoingTasks);
-    this.completedTasks$ = this.store.select(getCompletedTasks);
+  openModal(): void {
+    const modalRef = this.modalService.open(AddModalComponent);
+
+    modalRef.componentInstance.task = {
+      description: null,
+      status: 'Not started',
+      userId: this.user.uid,
+      createdDate: null,
+      finishedDate: null,
+    };
+
+    modalRef.result.then((task) => {
+      this.store.dispatch(addTodoRequested({ task: { ...task } }));
+    });
   }
 }

@@ -3,7 +3,6 @@ import {
   clearAlertInfoAction,
   setAlertInfoAction,
   setMessage,
-  setLoadingSpinnerAction,
   setNgxSpinnerAction,
 } from './shared.actions';
 import { initialState } from './shared.state';
@@ -38,16 +37,4 @@ const _sharedReducer = createReducer(
 
 export function sharedReducer(state, action) {
   return _sharedReducer(state, action);
-}
-function setNgxSpinnerStartAction(
-  setNgxSpinnerStartAction: any,
-  arg1: (
-    state: import('./shared.state').SharedState,
-    action: any
-  ) => {
-    loading: any;
-    alertInfo: import('../../core/models/alert.model').AlertInfo;
-  }
-): import('@ngrx/store').On<{ alertInfo: any; loading: any }> {
-  throw new Error('Function not implemented.');
 }

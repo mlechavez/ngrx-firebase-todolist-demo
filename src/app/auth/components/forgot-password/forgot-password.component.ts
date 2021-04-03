@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PasswordResetRequestPayload } from 'src/app/core/payloads/auth.payloads';
-import { AppState } from 'src/app/state/app.state';
+import { AppState } from 'src/app/core/store/app.state';
 import { passwordResetRequested } from '../../state/auth.actions';
 
 @Component({
