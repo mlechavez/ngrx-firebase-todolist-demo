@@ -1,12 +1,13 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getUser } from '../auth/state/auth.selectors';
-import { Task } from '../core/models/task.model';
+import { Task, TaskStatus } from '../core/models/task.model';
 import { User } from '../core/models/user.model';
 import { AppState } from '../core/store/app.state';
 import { addTodoRequested } from '../core/store/todo/task.actions';
-import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { ModalComponent } from '../shared/components/modal/modal.component';
+import { ModalConfig } from '../shared/config/modal.config';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,17 @@ import { AddModalComponent } from './components/add-modal/add-modal.component';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('modal') private modalComponent: ModalComponent;
+  modalConfig: ModalConfig;
   user: User;
-  constructor(private store: Store<AppState>, private modalService: NgbModal) {}
+  task: Task;
+  keys = Object.keys;
+  taskStatus = TaskStatus;
+
+  constructor(private store: Store<AppState>) {
+    this.task = new Task();
+    this.modalConfig = this.initializeModalConfig();
+  }
   ngOnInit(): void {
     this.store.select(getUser).subscribe((user) => {
       this.user = user;
@@ -23,18 +33,33 @@ export class HomeComponent implements OnInit {
   }
 
   openModal(): void {
-    const modalRef = this.modalService.open(AddModalComponent);
+    this.modalComponent.open().then((result) => {
+      if (result === 'close') {
+        this.task.userId = this.user.uid;
+        this.task.createdDate = new Date().toJSON();
 
-    modalRef.componentInstance.task = {
-      description: null,
-      status: 'Not started',
-      userId: this.user.uid,
-      createdDate: null,
-      finishedDate: null,
-    };
-
-    modalRef.result.then((task) => {
-      this.store.dispatch(addTodoRequested({ task: { ...task } }));
+        this.store.dispatch(addTodoRequested({ task: { ...this.task } }));
+      }
     });
+  }
+
+  convertStatus(status): string {
+    switch (status) {
+      case 'NOT_STARTED':
+        return 'Not started';
+      case 'IN_PROGRESS':
+        return 'In progress';
+      default:
+        return 'Completed';
+    }
+  }
+
+  private initializeModalConfig(): ModalConfig {
+    return {
+      title: 'Add task',
+      closeButtonLabel: 'Submit',
+      dismissButtonLabel: 'Cancel',
+      closeButtonCss: 'btn btn btn-outline-success',
+    };
   }
 }

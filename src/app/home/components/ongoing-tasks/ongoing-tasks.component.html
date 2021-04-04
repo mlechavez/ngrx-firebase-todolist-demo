@@ -1,5 +1,5 @@
 <h3 class="mb-3">
-  {{ onGoingTasksHeader }}
+  {{ title }}
 </h3>
 
 <div class="row">
@@ -30,10 +30,30 @@
           </select>
 
           <a href="#" class="text-danger">
-            <i class="fa fa-trash" (click)="openModal($event, task)"></i>
+            <i
+              class="fa fa-trash"
+              (click)="onDeleteConfirmation($event, task)"
+            ></i>
           </a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-modal #modalComplete [modalConfig]="completeModalConfig">
+  <p>
+    Do you want to complete the
+    <strong>{{ taskInQuestion?.description }}</strong>
+    and remove it from your on-going task ?
+  </p>
+</app-modal>
+
+<app-modal #modalDelete [modalConfig]="deleteModalConfig">
+  <p class="text-center">
+    Are you sure you want to delete
+    <strong>"{{ taskInQuestion?.description }}"</strong>?
+    <span class="text-danger">This cannot be undone.</span>
+  </p>
+  <p class="text-danger text-center"></p>
+</app-modal>

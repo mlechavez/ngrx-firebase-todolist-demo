@@ -18,9 +18,10 @@ export const _taskReducer = createReducer(
     };
   }),
   on(updateTaskSucceeded, (state, action) => {
-    const ongoingTasks = state.onGoingTasks.map((t) => {
-      return t.id === action.task.id ? action.task : t;
-    });
+    const ongoingTasks = state.onGoingTasks.filter(
+      (t) => t.id !== action.task.id
+    );
+
     return {
       ...state,
       onGoingTasks: [...ongoingTasks],

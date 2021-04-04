@@ -1,5 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Task, TaskStatus } from 'src/app/core/models/task.model';
@@ -10,25 +16,31 @@ import {
   updateTaskRequested,
 } from 'src/app/core/store/todo/task.actions';
 import { selectOngoingTasks } from 'src/app/core/store/todo/task.selectors';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import * as _ from 'lodash';
-import { CompleteModalComponent } from '../complete-modal/complete-modal.component';
+import { ModalConfig } from 'src/app/shared/config/modal.config';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-ongoing-tasks',
   templateUrl: './ongoing-tasks.component.html',
   styleUrls: ['./ongoing-tasks.component.scss'],
 })
-export class OngoingTasksComponent implements OnInit, OnDestroy {
+export class OngoingTasksComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('modalComplete') private modalComplete: ModalComponent;
+  @ViewChild('modalDelete') private modalDelete: ModalComponent;
+  title = 'On going tasks';
   onGoingTasks$: Observable<Task[]>;
   onGoingTasks: Task[];
   onGoingTasksSubscription: Subscription;
-  onGoingTasksHeader = 'On going tasks';
-  total = 0;
+  taskInQuestion: Task;
+  deleteModalConfig: ModalConfig;
+  completeModalConfig: ModalConfig;
   keys = Object.keys;
   taskStatus = TaskStatus;
 
-  constructor(private store: Store<AppState>, private modalService: NgbModal) {}
+  constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef) {
+    this.taskInQuestion = new Task();
+  }
 
   ngOnInit(): void {
     this.store.dispatch(loadOngoingTasksRequested());
@@ -36,34 +48,56 @@ export class OngoingTasksComponent implements OnInit, OnDestroy {
     this.onGoingTasksSubscription = this.store
       .select(selectOngoingTasks)
       .subscribe((data) => {
+        console.log(`selectOnGoingTasks init`);
         this.onGoingTasks = _.cloneDeep(data);
       });
+
+    this.completeModalConfig = {
+      title: 'Confirmation',
+      closeButtonLabel: 'Submit',
+      dismissButtonLabel: 'Cancel',
+      closeButtonCss: 'btn btn btn-outline-success',
+    };
+
+    this.deleteModalConfig = {
+      title: 'Delete task',
+      closeButtonLabel: 'Submit',
+      dismissButtonLabel: 'Cancel',
+      closeButtonCss: 'btn btn btn-outline-danger',
+    };
   }
 
-  openModal(event: Event, task: Task): void {
+  ngAfterViewInit(): void {
+    // console.log(`ngAfterViewInitCalled`);
+    // this.cdr.detectChanges();
+  }
+
+  onDeleteConfirmation(event: Event, task: Task): void {
     event.preventDefault();
+    this.taskInQuestion = task;
 
-    const modalRef = this.modalService.open(DeleteModalComponent);
-    modalRef.componentInstance.task = task;
-
-    modalRef.result.then((task) => {
-      this.store.dispatch(deleteTaskRequested({ id: task.id }));
+    this.modalDelete.open().then((result) => {
+      if (result === 'close') {
+        this.store.dispatch(deleteTaskRequested({ id: task.id }));
+      }
     });
   }
 
-  onStatusChanged(task: Task): void {
+  async onStatusChanged(task: Task): Promise<void> {
     if (task.status.toLocaleLowerCase() === 'completed') {
-      const modalRef = this.modalService.open(CompleteModalComponent);
-      modalRef.componentInstance.task = task;
-      modalRef.result.then((result) => {
-        this.store.dispatch(updateTaskRequested({ task: { ...result } }));
+      this.taskInQuestion = task;
+
+      return await this.modalComplete.open().then((result) => {
+        if (result === 'close') {
+          task.finishedDate = new Date().toJSON();
+          this.store.dispatch(updateTaskRequested({ task: { ...task } }));
+        }
       });
     } else {
       this.store.dispatch(updateTaskRequested({ task: { ...task } }));
     }
   }
   convertStatus(status): string {
-    // console.log((this.total += 1));
     let result;
     switch (status) {
       case 'NOT_STARTED':
