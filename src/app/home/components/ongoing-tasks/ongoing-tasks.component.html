@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col-sm-4 mb-2 ongoing-tasks" *ngFor="let task of onGoingTasks">
-    <div class="card bg-info text-white">
+    <div class="card bg-info text-white" (dblclick)="onCardDblClick(task)">
       <div class="card-body">
         <small class="task-createdate pull-right text-warning">
           Created on {{ task.createdDate | todoTimestamp: "shortDate" }}
@@ -40,6 +40,29 @@
     </div>
   </div>
 </div>
+
+<app-modal #modalEdit [modalConfig]="editModalConfig">
+  <form #editTaskForm>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        required
+        name="description"
+        id="description"
+        class="form-control"
+        [class.is-invalid]="description.errors?.required && description.touched"
+        [(ngModel)]="taskInQuestion.description"
+        #description="ngModel"
+      ></textarea>
+      <span
+        class="invalid-feedback"
+        *ngIf="description.errors?.required && description.touched"
+      >
+        Description is required
+      </span>
+    </div>
+  </form>
+</app-modal>
 
 <app-modal #modalComplete [modalConfig]="completeModalConfig">
   <p>

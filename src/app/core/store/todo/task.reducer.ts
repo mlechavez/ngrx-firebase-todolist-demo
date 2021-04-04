@@ -18,9 +18,16 @@ export const _taskReducer = createReducer(
     };
   }),
   on(updateTaskSucceeded, (state, action) => {
-    const ongoingTasks = state.onGoingTasks.filter(
-      (t) => t.id !== action.task.id
-    );
+    let ongoingTasks;
+
+    // Remove from the list if finished
+    if (action.task.finishedDate) {
+      ongoingTasks = state.onGoingTasks.filter((t) => t.id !== action.task.id);
+    } else {
+      ongoingTasks = state.onGoingTasks.map((t) => {
+        return t.id === action.task.id ? action.task : t;
+      });
+    }
 
     return {
       ...state,

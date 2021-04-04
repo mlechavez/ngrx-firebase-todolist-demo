@@ -26,13 +26,15 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
   styleUrls: ['./ongoing-tasks.component.scss'],
 })
 export class OngoingTasksComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('modalEdit') private modalEdit: ModalComponent;
   @ViewChild('modalComplete') private modalComplete: ModalComponent;
   @ViewChild('modalDelete') private modalDelete: ModalComponent;
+
   title = 'On going tasks';
-  onGoingTasks$: Observable<Task[]>;
   onGoingTasks: Task[];
   onGoingTasksSubscription: Subscription;
   taskInQuestion: Task;
+  editModalConfig: ModalConfig;
   deleteModalConfig: ModalConfig;
   completeModalConfig: ModalConfig;
   keys = Object.keys;
@@ -48,10 +50,15 @@ export class OngoingTasksComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onGoingTasksSubscription = this.store
       .select(selectOngoingTasks)
       .subscribe((data) => {
-        console.log(`selectOnGoingTasks init`);
         this.onGoingTasks = _.cloneDeep(data);
       });
 
+    this.editModalConfig = {
+      title: 'Edit task',
+      closeButtonLabel: 'Submit',
+      dismissButtonLabel: 'Cancel',
+      closeButtonCss: 'btn btn btn-outline-success',
+    };
     this.completeModalConfig = {
       title: 'Confirmation',
       closeButtonLabel: 'Submit',
@@ -72,9 +79,21 @@ export class OngoingTasksComponent implements OnInit, AfterViewInit, OnDestroy {
     // this.cdr.detectChanges();
   }
 
+  onCardDblClick(task: Task): void {
+    this.taskInQuestion = { ...task };
+
+    this.modalEdit.open().then((result) => {
+      if (result === 'close') {
+        this.store.dispatch(
+          updateTaskRequested({ task: { ...this.taskInQuestion } })
+        );
+      }
+    });
+  }
+
   onDeleteConfirmation(event: Event, task: Task): void {
     event.preventDefault();
-    this.taskInQuestion = task;
+    this.taskInQuestion = { ...task };
 
     this.modalDelete.open().then((result) => {
       if (result === 'close') {
@@ -85,7 +104,7 @@ export class OngoingTasksComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async onStatusChanged(task: Task): Promise<void> {
     if (task.status.toLocaleLowerCase() === 'completed') {
-      this.taskInQuestion = task;
+      this.taskInQuestion = { ...task };
 
       return await this.modalComplete.open().then((result) => {
         if (result === 'close') {
