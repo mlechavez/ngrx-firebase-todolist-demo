@@ -1,0 +1,32 @@
+<ng-template #modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ modalConfig.title }}</h4>
+  </div>
+  <div class="modal-body">
+    <ng-content #modalContent></ng-content>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      [ngClass]="
+        modalConfig.dismissButtonCss
+          ? modalConfig.dismissButtonCss
+          : 'btn btn-outline-secondary'
+      "
+      (click)="dismiss()"
+    >
+      {{ modalConfig.dismissButtonLabel }}
+    </button>
+    <button
+      type="button"
+      [ngClass]="
+        modalConfig.closeButtonCss
+          ? modalConfig.closeButtonCss
+          : 'btn btn-outline-secondary'
+      "
+      (click)="close()"
+    >
+      {{ modalConfig.closeButtonLabel }}
+    </button>
+  </div>
+</ng-template>

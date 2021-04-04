@@ -1,10 +1,10 @@
 <h3 class="mb-3">
-  {{ onGoingTasksHeader }}
+  {{ title }}
 </h3>
 
 <div class="row">
   <div class="col-sm-4 mb-2 ongoing-tasks" *ngFor="let task of onGoingTasks">
-    <div class="card bg-info text-white">
+    <div class="card bg-info text-white" (dblclick)="onCardDblClick(task)">
       <div class="card-body">
         <small class="task-createdate pull-right text-warning">
           Created on {{ task.createdDate | todoTimestamp: "shortDate" }}
@@ -30,10 +30,53 @@
           </select>
 
           <a href="#" class="text-danger">
-            <i class="fa fa-trash" (click)="openModal($event, task)"></i>
+            <i
+              class="fa fa-trash"
+              (click)="onDeleteConfirmation($event, task)"
+            ></i>
           </a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-modal #modalEdit [modalConfig]="editModalConfig">
+  <form #editTaskForm>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        required
+        name="description"
+        id="description"
+        class="form-control"
+        [class.is-invalid]="description.errors?.required && description.touched"
+        [(ngModel)]="taskInQuestion.description"
+        #description="ngModel"
+      ></textarea>
+      <span
+        class="invalid-feedback"
+        *ngIf="description.errors?.required && description.touched"
+      >
+        Description is required
+      </span>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal #modalComplete [modalConfig]="completeModalConfig">
+  <p>
+    Do you want to complete the
+    <strong>{{ taskInQuestion?.description }}</strong>
+    and remove it from your on-going task ?
+  </p>
+</app-modal>
+
+<app-modal #modalDelete [modalConfig]="deleteModalConfig">
+  <p class="text-center">
+    Are you sure you want to delete
+    <strong>"{{ taskInQuestion?.description }}"</strong>?
+    <span class="text-danger">This cannot be undone.</span>
+  </p>
+  <p class="text-danger text-center"></p>
+</app-modal>

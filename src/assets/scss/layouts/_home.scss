@@ -1,8 +1,10 @@
 .ongoing-tasks {
   padding: 0 0.25rem;
+
   .card {
     height: 100%;
     width: 100%;
+    cursor: pointer;
   }
 
   .card-text {

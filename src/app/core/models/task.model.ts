@@ -5,7 +5,7 @@ export class Task {
   status?: string = 'Not started';
   userId: string;
   createdDate: string;
-  finishedDate?: string;
+  finishedDate?: string = null;
 }
 
 export enum TaskStatus {

@@ -18,7 +18,6 @@ import { AuthEffects } from './auth/state/auth.effects';
 import { CoreModule } from './core/core.module';
 import { TaskEffects } from './core/store/todo/task.effects';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddModalComponent } from './home/components/add-modal/add-modal.component';
 
 @NgModule({
   declarations: [AppComponent],
