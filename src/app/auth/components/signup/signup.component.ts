@@ -5,7 +5,7 @@ import { AlertInfo } from 'src/app/core/models/alert.model';
 import { SignupRequestPayload } from 'src/app/core/payloads/auth.payloads';
 import { selectAlertInfo } from 'src/app/core/store/shared/shared.selectors';
 import { AppState } from 'src/app/core/store/app.state';
-import { signupRequest } from '../../state/auth.actions';
+import { signupRequest } from '../../../core/store/auth/auth.actions';
 
 @Component({
   selector: 'app-signup',

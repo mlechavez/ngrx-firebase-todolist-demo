@@ -5,8 +5,8 @@ import {
   signoutRequest,
   signupSuccess,
   userReAuthenticationSuccess,
-} from './auth.actions';
-import { initialState } from './auth.state';
+} from './auth/auth.actions';
+import { initialState } from './auth/auth.state';
 
 const _authReducer = createReducer(
   initialState,

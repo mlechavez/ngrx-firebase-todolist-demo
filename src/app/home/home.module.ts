@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { OngoingTasksComponent } from './components/ongoing-tasks/ongoing-tasks.component';
 import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { StatusFilterComponent } from './components/filter-order-status/status-filter.component';
+import { StatusFilterComponent } from './components/status-filter/status-filter.component';
 
 const routes: Routes = [
   {

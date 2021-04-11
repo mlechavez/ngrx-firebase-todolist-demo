@@ -4,7 +4,7 @@ import { LoginRequestPayload } from 'src/app/core/payloads/auth.payloads';
 import {
   loginRequest,
   userReAuthenticationRequest,
-} from '../../state/auth.actions';
+} from '../../../core/store/auth/auth.actions';
 
 @Component({
   selector: 'app-login',

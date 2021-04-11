@@ -5,8 +5,8 @@ import { AppState } from 'src/app/core/store/app.state';
 import {
   changePasswordRequest,
   userReAuthenticationRequest,
-} from '../../state/auth.actions';
-import { getReAuthenticated } from '../../state/auth.selectors';
+} from '../../../core/store/auth/auth.actions';
+import { getReAuthenticated } from '../../../core/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-change-password',

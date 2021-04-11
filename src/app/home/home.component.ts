@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getUser, isAuthenticated } from '../auth/state/auth.selectors';
+import { getUser, isAuthenticated } from '../core/store/auth/auth.selectors';
 import { Task, TaskStatus } from '../core/models/task.model';
 import { User } from '../core/models/user.model';
 import { AppState } from '../core/store/app.state';

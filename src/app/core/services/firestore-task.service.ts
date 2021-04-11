@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { getUser } from 'src/app/auth/state/auth.selectors';
+import { getUser } from 'src/app/core/store/auth/auth.selectors';
 import { AppState } from 'src/app/core/store/app.state';
 import { Task } from '../models/task.model';
 import { User } from '../models/user.model';
