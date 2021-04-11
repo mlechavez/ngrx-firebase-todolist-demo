@@ -48,3 +48,8 @@ export const deleteTaskSucceeded = createAction(
   '[Task Delete] Delete Task Succeeded',
   props<{ id: string }>()
 );
+
+export const sortByStatusRequest = createAction(
+  '[Sort By Status] Sort tasks by status',
+  props<{ sortBy: string }>()
+);

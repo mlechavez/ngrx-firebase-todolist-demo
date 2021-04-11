@@ -31,11 +31,12 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxSpinnerModule,
     HomeModule,
     AuthModule,
+    NgbModule,
     StoreModule.forRoot(appReducer, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        // strictStateSerializability: true,
+        strictStateSerializability: true,
         strictActionSerializability: true,
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
@@ -45,7 +46,6 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([AuthEffects, TaskEffects]),
-    NgbModule,
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent],

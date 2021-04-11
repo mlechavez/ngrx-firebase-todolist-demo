@@ -30,7 +30,7 @@ export class OngoingTasksComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('modalComplete') private modalComplete: ModalComponent;
   @ViewChild('modalDelete') private modalDelete: ModalComponent;
 
-  title = 'On going tasks';
+  title = 'On-going tasks';
   onGoingTasks: Task[];
   onGoingTasksSubscription: Subscription;
   taskInQuestion: Task;

@@ -12,6 +12,7 @@ import { AppState } from 'src/app/core/store/app.state';
   styleUrls: ['./site-header.component.scss'],
 })
 export class SiteHeaderComponent implements OnInit {
+  collapsed = true;
   isAuthenticated$: Observable<boolean>;
   user$: Observable<User>;
 

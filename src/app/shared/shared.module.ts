@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AlertComponent } from './components/alert/alert.component';
 import { TodoTimestampPipe } from './pipes/todo-timestamp.pipe';
 import { ModalComponent } from './components/modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
