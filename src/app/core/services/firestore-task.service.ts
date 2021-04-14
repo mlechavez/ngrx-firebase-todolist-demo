@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { getUser } from 'src/app/auth/state/auth.selectors';
+import { getUser } from 'src/app/core/store/auth/auth.selectors';
 import { AppState } from 'src/app/core/store/app.state';
 import { Task } from '../models/task.model';
 import { User } from '../models/user.model';
@@ -31,6 +31,23 @@ export class TaskService implements ITaskService {
         .where('userId', '==', this.user.uid)
         .where('finishedDate', '==', null)
         .orderBy('createdDate', 'desc')
+        .get()
+    );
+  }
+
+  getOngoingTasksByFilter(filterObj: { status: string; orderBy: string }) {
+    let collection = this.firebase.firestore
+      .collection(this.COLLECTION_NAME)
+      .where('userId', '==', this.user.uid)
+      .where('finishedDate', '==', null);
+
+    if (filterObj.status != null && filterObj.status != '') {
+      collection = collection.where('status', '==', filterObj.status);
+    }
+
+    return from(
+      collection
+        .orderBy('createdDate', filterObj.orderBy == 'asc' ? 'asc' : 'desc')
         .get()
     );
   }

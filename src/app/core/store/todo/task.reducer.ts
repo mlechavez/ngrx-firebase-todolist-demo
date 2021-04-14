@@ -6,6 +6,8 @@ import {
   loadCompletedTasksSucceeded,
   updateTaskRequested,
   updateTaskSucceeded,
+  filterAndSortOngoingTaskRequested,
+  filterAndSortOngoingTaskSucceeded,
 } from './task.actions';
 import { initialState } from './task.state';
 
@@ -52,6 +54,12 @@ export const _taskReducer = createReducer(
     return {
       ...state,
       completedTasks: [...action.completedTasks],
+    };
+  }),
+  on(filterAndSortOngoingTaskSucceeded, (state, action) => {
+    return {
+      ...state,
+      onGoingTasks: [...action.onGoingTasks],
     };
   })
 );

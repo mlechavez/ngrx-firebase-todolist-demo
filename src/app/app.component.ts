@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { userSessionHasRequested } from './auth/state/auth.actions';
+import { userSessionHasRequested } from './core/store/auth/auth.actions';
 import * as fromSharedSelector from './core/store/shared/shared.selectors';
 import { AppState } from './core/store/app.state';
 

@@ -1,4 +1,4 @@
-import { authReducer } from '../../auth/state/auth.reducer';
+import { authReducer } from './auth.reducer';
 import { sharedReducer } from './shared/shared.reducer';
 import { SharedState } from './shared/shared.state';
 import { taskReducer } from './todo/task.reducer';

@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getUser } from '../auth/state/auth.selectors';
+import { Observable } from 'rxjs';
+import { getUser, isAuthenticated } from '../core/store/auth/auth.selectors';
 import { Task, TaskStatus } from '../core/models/task.model';
 import { User } from '../core/models/user.model';
 import { AppState } from '../core/store/app.state';
@@ -15,6 +16,10 @@ import { ModalConfig } from '../shared/config/modal.config';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  collapsed = true;
+  isAuthenticated$: Observable<boolean>;
+  user$: Observable<User>;
+
   @ViewChild('modal') private modalComponent: ModalComponent;
   modalConfig: ModalConfig;
   user: User;
@@ -30,6 +35,8 @@ export class HomeComponent implements OnInit {
     this.store.select(getUser).subscribe((user) => {
       this.user = user;
     });
+    this.isAuthenticated$ = this.store.select(isAuthenticated);
+    this.user$ = this.store.select(getUser);
   }
 
   openModal(): void {

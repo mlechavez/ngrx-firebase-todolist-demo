@@ -48,3 +48,13 @@ export const deleteTaskSucceeded = createAction(
   '[Task Delete] Delete Task Succeeded',
   props<{ id: string }>()
 );
+
+export const filterAndSortOngoingTaskRequested = createAction(
+  '[Filter and Sort By Status] Filter and Sort tasks by status requested',
+  props<{ filterObj: { status: string; orderBy: string } }>()
+);
+
+export const filterAndSortOngoingTaskSucceeded = createAction(
+  '[Filter and Sort By Status] Filter and Sort tasks by status succeeded',
+  props<{ onGoingTasks: Task[] }>()
+);

@@ -35,3 +35,19 @@
     }
   }
 }
+
+.status-filter {
+  margin-right: -14px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: space;
+
+  label {
+    margin: 0.4rem 0.8rem 0.4rem;
+  }
+
+  .form-control {
+    width: 150px;
+  }
+}

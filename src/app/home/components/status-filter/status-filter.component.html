@@ -1,0 +1,27 @@
+<div class="status-filter">
+  <label for="filterStatus">Filter by:</label>
+  <select
+    name="filterStatus"
+    id="filterStatus"
+    class="form-control"
+    [(ngModel)]="filterObj.status"
+  >
+    <option value="">None</option>
+    <option value="Not started">Not started</option>
+    <option value="In progress">In progress</option>
+  </select>
+  <label for="orderByStatus">Order by:</label>
+  <select
+    name="orderByStatus"
+    id="orderByStatus"
+    class="form-control"
+    [(ngModel)]="filterObj.orderBy"
+  >
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+  </select>
+
+  <button class="btn btn-outline-secondary ml-2" (click)="onFilterSubmit()">
+    Go
+  </button>
+</div>

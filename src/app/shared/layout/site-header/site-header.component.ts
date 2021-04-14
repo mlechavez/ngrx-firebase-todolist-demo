@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { signoutRequest } from 'src/app/auth/state/auth.actions';
-import { getUser, isAuthenticated } from 'src/app/auth/state/auth.selectors';
+import { signoutRequest } from 'src/app/core/store/auth/auth.actions';
+import {
+  getUser,
+  isAuthenticated,
+} from 'src/app/core/store/auth/auth.selectors';
 import { User } from 'src/app/core/models/user.model';
 import { AppState } from 'src/app/core/store/app.state';
 
@@ -12,6 +15,7 @@ import { AppState } from 'src/app/core/store/app.state';
   styleUrls: ['./site-header.component.scss'],
 })
 export class SiteHeaderComponent implements OnInit {
+  collapsed = true;
   isAuthenticated$: Observable<boolean>;
   user$: Observable<User>;
 

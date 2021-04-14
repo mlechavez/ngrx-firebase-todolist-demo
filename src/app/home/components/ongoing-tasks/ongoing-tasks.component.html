@@ -1,9 +1,14 @@
-<h3 class="mb-3">
-  {{ title }}
-</h3>
+<div class="row mb-3">
+  <div class="col-sm-3">
+    <h4 class="mb-3">{{ title }}</h4>
+  </div>
+  <div class="col-sm-9">
+    <app-status-filter></app-status-filter>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-sm-4 mb-2 ongoing-tasks" *ngFor="let task of onGoingTasks">
+  <div class="col-sm-3 mb-2 ongoing-tasks" *ngFor="let task of onGoingTasks">
     <div class="card bg-info text-white" (dblclick)="onCardDblClick(task)">
       <div class="card-body">
         <small class="task-createdate pull-right text-warning">
