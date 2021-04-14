@@ -45,6 +45,31 @@ export class TaskEffects {
     );
   });
 
+  loadOnGoingTasksByFilter$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromTaskActions.filterAndSortOngoingTaskRequested),
+      switchMap((action) => {
+        return this.taskService.getOngoingTasksByFilter(action.filterObj).pipe(
+          map((querySnapshot) => {
+            let tasks = [];
+            querySnapshot.forEach((doc) => {
+              tasks.push({ ...(doc.data() as {}), id: doc.id });
+            });
+            this.spinnerService.hide();
+            return fromTaskActions.filterAndSortOngoingTaskSucceeded({
+              onGoingTasks: [...tasks],
+            });
+          }),
+          catchError((err) => {
+            this.spinnerService.hide();
+            this.toastrService.show(this.getErrorMessage(err), 'Error');
+            return of(setMessage({ message: this.getErrorMessage(err) }));
+          })
+        );
+      })
+    );
+  });
+
   loadCompletedTasks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromTaskActions.loadCompletedTasksRequested),

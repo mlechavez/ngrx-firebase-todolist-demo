@@ -49,7 +49,12 @@ export const deleteTaskSucceeded = createAction(
   props<{ id: string }>()
 );
 
-export const sortByStatusRequest = createAction(
-  '[Sort By Status] Sort tasks by status',
-  props<{ sortBy: string }>()
+export const filterAndSortOngoingTaskRequested = createAction(
+  '[Filter and Sort By Status] Filter and Sort tasks by status requested',
+  props<{ filterObj: { status: string; orderBy: string } }>()
+);
+
+export const filterAndSortOngoingTaskSucceeded = createAction(
+  '[Filter and Sort By Status] Filter and Sort tasks by status succeeded',
+  props<{ onGoingTasks: Task[] }>()
 );

@@ -35,6 +35,23 @@ export class TaskService implements ITaskService {
     );
   }
 
+  getOngoingTasksByFilter(filterObj: { status: string; orderBy: string }) {
+    let collection = this.firebase.firestore
+      .collection(this.COLLECTION_NAME)
+      .where('userId', '==', this.user.uid)
+      .where('finishedDate', '==', null);
+
+    if (filterObj.status != null && filterObj.status != '') {
+      collection = collection.where('status', '==', filterObj.status);
+    }
+
+    return from(
+      collection
+        .orderBy('createdDate', filterObj.orderBy == 'asc' ? 'asc' : 'desc')
+        .get()
+    );
+  }
+
   getCompletedTasks(pageNo: number, pageSize: number) {
     return from(
       this.firebase.firestore
